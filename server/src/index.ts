@@ -1,9 +1,4 @@
-import express from 'express'
-import http from 'http'
-import cors from 'cors'
+import makeApp from './makeApp'
+import database from './db/database'
 
-const app = express()
-
-app.use(cors()) // Add cors middleware
-
-const server = http.createServer(app)
+const { app, appDatabase, server } = makeApp(database)
