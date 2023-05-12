@@ -1,6 +1,7 @@
 import pgClient from '../appConfig/dbConnect'
 import { QueryResult } from 'pg'
 import { CreateUserInput } from '../schema/user.schema'
+import type { User } from '../types'
 
 const sqlQueries = {
     user: {
@@ -24,7 +25,7 @@ const sqlQueries = {
                 `
                 INSERT INTO users(email,name,passhash,createdate)
                 VALUES($1,$2,$3,$4)
-                RETURNING id, email;
+                RETURNING id, email
                 `,
                 [email, name, password, confirmPassword]
             )

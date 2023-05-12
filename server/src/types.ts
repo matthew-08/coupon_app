@@ -1,10 +1,10 @@
-interface User {
+import { CreateUserInput } from './schema/user.schema'
+
+export interface User {
     email: string
     id: string
 }
 
-interface UserDBInsertInput {
-    email: string
-    name: string
-    hashPass: string
+export interface UserDBInsertInput extends CreateUserInput {
+    hashPass: string | null
 }
