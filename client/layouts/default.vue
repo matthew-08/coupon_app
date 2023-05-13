@@ -1,7 +1,8 @@
 <template>
     <main
-    class="flex-col justify-center px-80 bg-slate-50" 
+    class="flex-col justify-center items-center px-80" 
     >
+    <AppNav/>
     <slot />
     </main>
 </template>
