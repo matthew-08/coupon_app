@@ -1,9 +1,0 @@
-{
-    "extends": [
-      "@nuxtjs/eslint-config-typescript"
-    ],
-    "rules": {
-      "no-console": "off"
-    },
-    "ignorePatterns": ["nuxt.config.ts"]
-}
