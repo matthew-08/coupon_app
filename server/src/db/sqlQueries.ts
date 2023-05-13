@@ -1,33 +1,42 @@
 import pgClient from '../appConfig/dbConnect'
 import { QueryResult } from 'pg'
 import { CreateUserInput } from '../schema/user.schema'
-import type { User } from '../types'
+import type { User, UserDBInsertInput } from '../types'
+import { UserSessionInput } from '../schema/session.schema'
+
+interface UserPassQuery {
+    email: string
+    id: string
+    passhash: string
+}
 
 const sqlQueries = {
     user: {
-        async getUser(userId: string): Promise<User> {
-            const user: QueryResult<User> = await pgClient.query(
+        async getUserPass(
+            input: UserSessionInput
+        ): Promise<UserPassQuery | undefined> {
+            const user: QueryResult<UserPassQuery> = await pgClient.query(
                 `
-                SELECT email, id FROM users
-                WHERE id=$0
+                SELECT email, id, passhash FROM users
+                WHERE email=$1
                 `,
-                [userId]
+                [input.email]
             )
+            console.log(user.rows[0])
             return user.rows[0]
         },
         async createUser({
-            confirmPassword,
+            hashPass,
             email,
-            password,
             name,
-        }: CreateUserInput): Promise<User> {
+        }: UserDBInsertInput): Promise<User> {
             const user: QueryResult<User> = await pgClient.query(
                 `
                 INSERT INTO users(email,name,passhash,createdate)
                 VALUES($1,$2,$3,$4)
                 RETURNING id, email
                 `,
-                [email, name, password, confirmPassword]
+                [email, name, hashPass, '3']
             )
             return user.rows[0]
         },
