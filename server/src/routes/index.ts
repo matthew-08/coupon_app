@@ -3,6 +3,7 @@ import { handleCreateUser } from '../controller/user.controller'
 import validateSchema from '../middleware/validateSchema'
 import zUserSchema from '../schema/user.schema'
 import hashPass from '../middleware/hashPass'
+import zSessionSchema from '../schema/session.schema'
 
 const routes = (app: Express) => {
     app.get('/healthcheck', (req, res) => {
@@ -17,6 +18,8 @@ const routes = (app: Express) => {
         hashPass,
         handleCreateUser
     )
+
+    app.post('/api/sessions', validateSchema(zSessionSchema))
 }
 
 export default routes

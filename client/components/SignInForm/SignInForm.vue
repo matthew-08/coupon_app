@@ -24,6 +24,7 @@
         class="text-cyan-500 cursor-pointer"
         >Click here.</span></small>
         <button
+        @click="attemptPost"
         class="w-full border-2 mt-3 py-2 text-2xl font-bold bg text-black bg-cyan-200 border-none"
         >
             Log In
@@ -42,7 +43,10 @@ const formInputs = ref({
     password: '',
 })
 
-await api.makeFetch('/api/user', 'POST', formInputs.value).then(res => console.log(res))
+const attemptPost = async () => {
+    await api.makeFetch('/api/users', 'POST', formInputs.value).then(res => console.log(res))
+}
+
 </script>
 
 <style scoped>
