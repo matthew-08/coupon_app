@@ -1,3 +1,4 @@
+import { UserSessionInput } from '../schema/session.schema'
 import { CreateUserInput } from '../schema/user.schema'
 import { UserDBInsertInput } from '../types'
 import sqlQueries from './sqlQueries'
@@ -7,9 +8,9 @@ const database = {
         async createUser(user: UserDBInsertInput) {
             return await sqlQueries.user.createUser(user)
         },
-        editUser() {},
-        updateUser() {},
-        getUser() {},
+        async getUser(user: UserSessionInput) {
+            return await sqlQueries.user.getUserPass(user)
+        },
     },
     coupons: {
         async getAllCoupons() {},
