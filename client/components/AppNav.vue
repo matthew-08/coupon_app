@@ -8,10 +8,6 @@
             SuperCoupons
         </h2>
     </header>
-    <section
-    >
-        <SignInForm/>
-    </section>
 </template>
 
 <script setup lang="ts">
