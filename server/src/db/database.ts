@@ -11,15 +11,8 @@ const database = {
         updateUser() {},
         getUser() {},
     },
-    ppt: {
-        pptGenerate() {},
-        pptEdit() {},
-    },
-    userPptOutline: {
-        pptOutlineCreate() {},
-        pptOutlineDelete() {},
-        pptOutlineEdit() {},
-        pptOutlineGet() {},
+    coupons: {
+        async getAllCoupons() {},
     },
 }
 
