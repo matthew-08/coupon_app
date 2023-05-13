@@ -41,10 +41,6 @@ const formInputs = ref({
     password: '',
 })
 
-watchEffect(() => {
-    console.log(formInputs.value.password)
-})
-console.log(appImages)  
 
 </script>
 
