@@ -22,3 +22,5 @@ CREATE TABLE user_coupon (
     coupon_id SERIAL REFERENCES coupon(id),
     reedemedAt VARCHAR(250) NOT NULL
 )
+
+
