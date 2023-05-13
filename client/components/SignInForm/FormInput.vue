@@ -9,7 +9,7 @@
         class="text-2xl mb-3" 
         for="">{{ labelText + ':' }}</label>
         <input 
-            type="text"
+            :type="passwordField ? 'password' : 'text'"
             :placeholder="placeholderText"
             class="pl-9 p-3 text-xl  border-2"
             :value="modelValue"
@@ -30,7 +30,8 @@
         iconImg: {
             required: true,
             type: String,
-        }
+        },
+        passwordField: Boolean
     })
     defineEmits(['update:modelValue'])
 </script>

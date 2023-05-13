@@ -1,6 +1,7 @@
 <template>
     <form
     class="flex flex-col p-5 justify-center items-center shadow-md max-w-md m-auto"
+    v-on:submit="attemptPost"
     >
         <h1
         class="text-3xl"
@@ -15,7 +16,8 @@
             placeholder-text="Enter Password"
             label-text="Password"
             v-model="formInputs.password"
-            :icon-img="appImages.lockIcon"   
+            :icon-img="appImages.lockIcon"
+            :password-field="true"   
         />
         <small
         class="mr-auto font-bold"
@@ -25,10 +27,17 @@
         >Click here.</span></small>
         <button
         @click="attemptPost"
-        class="w-full border-2 mt-3 py-2 text-2xl font-bold bg text-black bg-cyan-200 border-none"
+        class="flex justify-center w-full border-2 mt-3 py-3 text-2xl font-bold bg text-black bg-cyan-200 border-none"
         >
-            Log In
-        </button>
+        <template 
+        v-if="!loading"
+        > Login </template>
+        <template
+        v-else
+        ><HalfCircleSpinner
+        :size="30"
+        /></template>
+    </button>
     </form>
 </template>
 
@@ -37,14 +46,22 @@ import FormInput from './FormInput.vue';
 import { ref } from 'vue';
 import { appImages } from '~/utils/appImages';
 import api from '~/utils/apiFetch'
+import { HalfCircleSpinner } from 'epic-spinners'
+
+const loading = ref(false)
 
 const formInputs = ref({
     email: '',
     password: '',
 })
 
-const attemptPost = async () => {
-    await api.makeFetch('/api/users', 'POST', formInputs.value).then(res => console.log(res))
+const attemptPost = async (e:Event) => {
+    e.preventDefault()
+    loading.value = true
+    await api.makeFetch('/api/sessions', 'POST', formInputs.value).then(res => {
+        console.log(res)
+        loading.value = false
+    })
 }
 
 </script>
