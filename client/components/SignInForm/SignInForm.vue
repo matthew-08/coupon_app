@@ -35,13 +35,14 @@
 import FormInput from './FormInput.vue';
 import { ref } from 'vue';
 import { appImages } from '~/utils/appImages';
+import api from '~/utils/apiFetch'
 
 const formInputs = ref({
     email: '',
     password: '',
 })
 
-
+await api.makeFetch('/api/user', 'POST', formInputs.value).then(res => console.log(res))
 </script>
 
 <style scoped>
