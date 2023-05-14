@@ -25,6 +25,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { Teleport } from 'vue';
 import { ref } from 'vue'
 import { CouponInfo } from '~/globalTypes';
+import { definePageMeta } from '~/.nuxt/imports';
+
+definePageMeta({
+  middleware: 'protect-route'
+})
+
 
 const modalCoupon = ref<CouponInfo>({} as CouponInfo)
 
@@ -115,9 +121,11 @@ const coupons = ref<CouponInfo[]>([{
   redeemed: false,
 },])
 
+
 const showModal = ref(false)
-const setModalCard = (id: number) => {
-  const selectedCoupon = coupons.value.find((coupon) => coupon.id === id)
+const findCoupon = (id: number) => coupons.value.find((coupon) => coupon.id === id)
+const setModalCard = (coupId: number) => {
+  const selectedCoupon = findCoupon(coupId)
   if(selectedCoupon) {
     modalCoupon.value = selectedCoupon
   }
@@ -127,13 +135,15 @@ const handleCardClick = (couponId: number) => {
   return showModal.value = !showModal.value  
 }
 
-const handleRedeemCoupon = (couponId: number) => {
-  const selectedCoupon = coupons.value.find((coupon) => coupon.id === couponId)
-  if(selectedCoupon) {
-    selectedCoupon.redeemed = true
-    console.log(selectedCoupon)
+const handleRedeemCoupon = (coupId: number) => {
+  const redeemedCoupon = findCoupon(coupId)
+  if(redeemedCoupon) {
+    redeemedCoupon.redeemed = true
+    console.log(redeemedCoupon)
   }
 }
+
+
 
 
 </script>
