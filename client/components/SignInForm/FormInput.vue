@@ -1,21 +1,23 @@
 <template>
-    <div
+  <div
     class="flex flex-col w-full relative mb-6"
-    >
+  >
     <img 
-    class="w-6 absolute bottom-4 ml-2 filter"
-    :src="iconImg">
-        <label
-        class="text-2xl mb-3" 
-        for="">{{ labelText + ':' }}</label>
-        <input 
-            :type="passwordField ? 'password' : 'text'"
-            :placeholder="placeholderText"
-            class="pl-9 p-3 text-xl  border-2"
-            :value="modelValue"
-             @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-        />
-    </div>
+      class="w-6 absolute bottom-4 ml-2 filter"
+      :src="iconImg"
+    >
+    <label
+      class="text-2xl mb-3" 
+      for=""
+    >{{ labelText + ':' }}</label>
+    <input 
+      :type="passwordField ? 'password' : 'text'"
+      :placeholder="placeholderText"
+      class="pl-9 p-3 text-xl  border-2"
+      :value="modelValue"
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+    >
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -25,8 +27,14 @@
             default: '',
             required: true,
         },
-        labelText: String,
-        placeholderText: String,
+        labelText: {
+            type: String,
+            required: true,
+        },
+        placeholderText: {
+            type: String,
+            required: true,
+        },
         iconImg: {
             required: true,
             type: String,

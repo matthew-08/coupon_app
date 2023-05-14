@@ -1,44 +1,52 @@
 <template>
-    <form
-    class="flex flex-col p-5 justify-center items-center shadow-md max-w-md m-auto"
-    v-on:submit="attemptPost"
+  <form
+    class="flex flex-col p-5 justify-center items-center 
+    shadow-md max-w-md m-auto"
+    @submit="attemptPost"
+  >
+    <h1
+      class="text-3xl"
     >
-        <h1
-        class="text-3xl"
-        >Sign-In</h1>
-        <FormInput
-            placeholder-text="Enter Username"
-            label-text="Username"
-            :icon-img="appImages.userIcon"   
-            v-model="formInputs.email"
-        />
-        <FormInput
-            placeholder-text="Enter Password"
-            label-text="Password"
-            v-model="formInputs.password"
-            :icon-img="appImages.lockIcon"
-            :password-field="true"   
-        />
-        <small
-        class="mr-auto font-bold"
-        >Forgot your password?
-        <span
+      Sign-In
+    </h1>
+    <FormInput
+      v-model="formInputs.email"
+      placeholder-text="Enter Username"
+      label-text="Username"   
+      :icon-img="appImages.userIcon"
+    />
+    <FormInput
+      v-model="formInputs.password"
+      placeholder-text="Enter Password"
+      label-text="Password"
+      :icon-img="appImages.lockIcon"
+      :password-field="true"   
+    />
+    <small
+      class="mr-auto font-bold"
+    >Forgot your password?
+      <span
         class="text-cyan-500 cursor-pointer"
-        >Click here.</span></small>
-        <button
-        @click="attemptPost"
-        class="flex justify-center w-full border-2 mt-3 py-3 text-2xl font-bold bg text-black bg-cyan-200 border-none"
-        >
-        <template 
+      >Click here.</span></small>
+    <button
+      class="flex justify-center w-full border-2 mt-3 py-3 text-2xl 
+      font-bold bg text-black bg-cyan-200 border-none"
+      @click="attemptPost"
+    >
+      <template 
         v-if="!loading"
-        > Login </template>
-        <template
+      >
+        Login
+      </template>
+      <template
         v-else
-        ><HalfCircleSpinner
-        :size="30"
-        /></template>
+      >
+        <HalfCircleSpinner
+          :size="30"
+        />
+      </template>
     </button>
-    </form>
+  </form>
 </template>
 
 <script setup lang="ts">

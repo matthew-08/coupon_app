@@ -1,16 +1,11 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <main
-    class="flex-col justify-center items-center px-80" 
-    >
-    <AppNav/>
+  <main class="flex-col justify-center items-center">
+    <AppNav />
     <slot />
-    </main>
+  </main>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>
