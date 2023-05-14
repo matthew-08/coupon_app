@@ -2,12 +2,14 @@
   <div
     id="show-modal"
     class="flex flex-col items-center p-4 shadow-md border rounded-2xl cursor-pointer mb-5"
-    @click="$emit('showModal')"
+    @click="$emit('showModal', couponInfo.id)"
   >
-    <FontAwesomeIcon
-      :icon="couponInfo.icon"
-      size="5x"
-    />
+    <div>
+      <FAIcon
+        :icon="couponInfo.icon"
+        size="5x"
+      />
+    </div>
     <h2
       class="font-bold font-sans mr-auto mb-1 mt-4"
     >
@@ -31,14 +33,13 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import type { CouponInfo } from '../globalTypes'
-import { watch } from 'vue'
+import {genCouponCode} from '~/utils/genCoupCode';
 const props = defineProps({
     couponInfo: {
         type: Object as PropType<CouponInfo>,
         required: true,
     }
 })
-
 
 
 const emits = defineEmits(['showModal'])

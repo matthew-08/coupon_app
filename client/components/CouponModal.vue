@@ -1,11 +1,81 @@
+<template>
+  <Transition name="modal">
+    <div
+      v-if="show"
+      class="modal-overlay"
+    >
+      <div class="modal-container relative flex flex-col items-center">
+        <div
+          class="absolute right-3 top-3 cursor-pointer"
+          @click="$emit('close')"
+        >
+          <FAIcon
+            :icon="['fa-solid', 'fa-x']"
+            size="1x"
+          />
+        </div>
+        <div class="modal-header mt-5">
+          <h1 class="font-bold text-2xl">
+            Coupon Redemption
+          </h1>
+        </div>
+        <div class="modal-body flex flex-col items-center gap-3">
+          <FAIcon
+            :icon="couponInfo.icon"
+            size="5x"
+          />
+          <h1 class="text-2xl font-bold">
+            {{ couponInfo.company }}
+          </h1>
+          <h1 class="font-bold text-lg text-center">
+            {{ couponInfo.deal }}
+            <br>
+            {{ couponInfo.validThroughStart }} - {{ couponInfo.validThroughEnd }}
+          </h1>
+          <div>
+            <h2 class="mr-auto text-1xl font-bold">
+              Description:
+            </h2>
+            <p class="text-left">
+              Lorem ipsum dolor, sit amet dir adipisicing elit. Officiis, eos. Earum magnam dolores porro maxime atque corrupti, tempora quaerat.
+            </p>
+          </div>
+        </div>
 
+        <div class="flex flex-col modal-footer w-full items-center">
+          <div
+            v-show="redeemedCoupon"
+            class="text-center mb-2"
+          >
+            <p>Your code is:</p>
+            <p class="text-3xl">
+              {{ genCouponCode() }}
+            </p>
+          </div>
+          <button
+            class="w-full bg-slate-200 p-2 mb-2"
+          >
+            Redeem Now!
+          </button>
+          <button
+            class="w-full bg-slate-500 p-2 text-white"
+            @click="$emit('close')"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </Transition>
+</template>
 
 <script setup lang="ts">
-interface CouponInfo {
-    company: String,
-    expDate: String,
-}
+import { genCouponCode } from '~/utils/genCoupCode';
+import { CouponInfo } from '~/globalTypes';
 const emits = defineEmits(['close'])
+const redeemedCoupon = ref(false)
+
+
 const props = defineProps({
   show: Boolean,
   couponInfo: {
@@ -15,85 +85,34 @@ const props = defineProps({
 })
 </script>
 
-<template>
-  <Transition name="modal">
-    <div
-      v-if="show"
-      class="modal-mask"
-    >
-      <div class="modal-container">
-        <div class="modal-header">
-          <slot name="header">
-            default header
-          </slot>
-        </div>
 
-        <div class="modal-body">
-          <slot name="body">
-            {{ couponInfo.company }}
-          </slot>
-        </div>
-
-        <div class="modal-footer">
-          <slot name="footer">
-            {{ couponInfo.expDate }}
-            <button
-              class="modal-default-button"
-              @click="$emit('close')"
-            >
-              OK
-            </button>
-          </slot>
-        </div>
-      </div>
-    </div>
-  </Transition>
-</template>
 
 <style>
-.modal-mask {
+.modal-overlay {
   position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
+  display: flex;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  transition: opacity 0.3s ease;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.43);
+  transition: opacity 0.3s ease-in-out;
 }
 
 .modal-container {
-  width: 300px;
+  width: 320px;
   margin: auto;
-  padding: 20px 30px;
+  padding: 25px 30px;
   background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-}
-
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
+  border-radius: 10px;
+  box-shadow: 0 10px 8px rgba(0, 0, 0, 0.41);
+  transition: all 0.2s ease-in-out;
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 10px 0;
 }
-
-.modal-default-button {
-  float: right;
-}
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter-from {
   opacity: 0;
@@ -105,8 +124,6 @@ const props = defineProps({
 
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
   transform: translateY(100%);
 }
 </style>
