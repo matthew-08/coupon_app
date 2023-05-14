@@ -3,9 +3,11 @@ import { handleCreateUser } from '../controller/user.controller'
 import validateSchema from '../middleware/validateSchema'
 import zUserSchema from '../schema/user.schema'
 import hashPass from '../middleware/hashPass'
-import zSessionSchema from '../schema/session.schema'
+import zSessionSchema, { zGetSessionSchema } from '../schema/session.schema'
 import passCompare from '../middleware/passCompare'
-import handleCreateSession from '../controller/session.controller'
+import handleCreateSession, {
+    handleGetSession,
+} from '../controller/session.controller'
 
 const routes = (app: Express) => {
     app.get('/healthcheck', (req, res) => {
@@ -20,12 +22,18 @@ const routes = (app: Express) => {
         hashPass,
         handleCreateUser
     )
-
+    // SESSSIONS
     app.post(
         '/api/sessions',
         validateSchema(zSessionSchema),
         passCompare,
         handleCreateSession
+    )
+
+    app.get(
+        '/api/sessions',
+        validateSchema(zGetSessionSchema),
+        handleGetSession
     )
 }
 

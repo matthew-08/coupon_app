@@ -11,6 +11,16 @@ const zSessionSchema = z.object({
     }),
 })
 
+export const zGetSessionSchema = z.object({
+    heaaders: z.object({
+        authorization: z
+            .string({ required_error: 'No authorization header supplied' })
+            .refine((str) => {
+                str.includes('Bearer')
+            }),
+    }),
+})
+
 export type UserSessionInput = TypeOf<typeof zSessionSchema>['body']
 
 export default zSessionSchema

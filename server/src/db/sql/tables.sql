@@ -12,7 +12,7 @@ CREATE TABLE coupon (
     img VARCHAR(250) NOT NULL,
     description VARCHAR(250) NOT NULL,
     name VARCHAR(250) NOT NULL,
-    expirationDate VARCHAR(250) NOT NULL,
+    expirationDate VARCHAR(250) NOT NULL,cd 
     quantity INT NOT NULL
 );
 

@@ -7,7 +7,6 @@ const validateSchema =
     (req: Request, res: Response, next: NextFunction) => {
         try {
             console.log('in schema and this is the thing')
-            console.log(req.body)
             schema.parse({
                 body: req.body,
                 query: req.query,

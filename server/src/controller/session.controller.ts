@@ -23,4 +23,8 @@ const handleCreateSession = async (
     })
 }
 
+export const handleGetSession = (req: Request, res: Response) => {
+    console.log(req.headers)
+}
+
 export default handleCreateSession
