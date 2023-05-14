@@ -12,11 +12,11 @@ const zSessionSchema = z.object({
 })
 
 export const zGetSessionSchema = z.object({
-    heaaders: z.object({
+    headers: z.object({
         authorization: z
             .string({ required_error: 'No authorization header supplied' })
             .refine((str) => {
-                str.includes('Bearer')
+                return str.includes('Bearer')
             }),
     }),
 })

@@ -11,6 +11,7 @@ const validateSchema =
                 body: req.body,
                 query: req.query,
                 params: req.params,
+                headers: req.headers,
             })
             next()
         } catch (e: any) {

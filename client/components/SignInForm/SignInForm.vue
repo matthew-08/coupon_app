@@ -68,7 +68,10 @@ const attemptPost = async (e:Event) => {
     loading.value = true
     await api.makeFetch('/api/sessions', 'POST', formInputs.value)
     .then((res) => res.json())
-    .then((res) => setLocalStorage(res.accessToken))
+    .then((res) => {
+      console.log(res)
+      setLocalStorage(res.accessToken)
+    })
 }
 
 </script>

@@ -2,7 +2,8 @@ import { Request, Response } from 'express'
 import { UserSessionInput } from '../schema/session.schema'
 import jwt from 'jsonwebtoken'
 import appEnv from '../appConfig/env'
-import { signJwt } from '../utils/jwt'
+import { signJwt, verifyJwt } from '../utils/jwt'
+import get from 'lodash'
 
 const handleCreateSession = async (
     req: Request<{}, {}, UserSessionInput>,
@@ -23,8 +24,17 @@ const handleCreateSession = async (
     })
 }
 
-export const handleGetSession = (req: Request, res: Response) => {
-    console.log(req.headers)
+export const handleGetSession = async (
+    req: Request,
+    res: Response<{}, { accessToken: string }>
+) => {
+    const result = await verifyJwt(res.locals.accessToken)
+    console.log(res.locals.accessToken)
+    if (result.valid) {
+        return res.status(200).send(result)
+    } else {
+        return res.status(401).send(result)
+    }
 }
 
 export default handleCreateSession

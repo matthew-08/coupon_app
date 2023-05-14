@@ -8,6 +8,7 @@ import passCompare from '../middleware/passCompare'
 import handleCreateSession, {
     handleGetSession,
 } from '../controller/session.controller'
+import passAuthHeader from '../middleware/passAuthHeader'
 
 const routes = (app: Express) => {
     app.get('/healthcheck', (req, res) => {
@@ -29,10 +30,10 @@ const routes = (app: Express) => {
         passCompare,
         handleCreateSession
     )
-
     app.get(
         '/api/sessions',
         validateSchema(zGetSessionSchema),
+        passAuthHeader,
         handleGetSession
     )
 }

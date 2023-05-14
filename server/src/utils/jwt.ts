@@ -16,4 +16,21 @@ const signJwt = async (
     return signedJwt
 }
 
-export { signJwt }
+const verifyJwt = async (token: string) => {
+    try {
+        const decoded = jwt.verify(token, appEnv.PRIVATE_KEY as string)
+        return {
+            valid: true,
+            expired: false,
+            decoded,
+        }
+    } catch (error: any) {
+        return {
+            valid: false,
+            expired: error.message === 'jwt expired',
+            decoded: null,
+        }
+    }
+}
+
+export { signJwt, verifyJwt }

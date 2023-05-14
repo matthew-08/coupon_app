@@ -1,9 +1,9 @@
 const setLocalStorage = (token: string) => {
-    localStorage.setItem('token', token)
-}
+  localStorage.setItem('token', token);
+};
 
 const getToken = () => {
-    localStorage.getItem('token')
-}
+  return localStorage.getItem('token');
+};
 
-export { setLocalStorage, getToken }
+export { setLocalStorage, getToken };
