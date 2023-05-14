@@ -44,7 +44,7 @@
 
         <div class="flex flex-col modal-footer w-full items-center">
           <div
-            v-show="redeemedCoupon"
+            v-show="couponInfo.redeemed"
             class="text-center mb-2"
           >
             <p>Your code is:</p>
@@ -54,6 +54,8 @@
           </div>
           <button
             class="w-full bg-slate-200 p-2 mb-2"
+            :disabled="couponInfo.redeemed"
+            @click="$emit('redeemCoupon', couponInfo.id)"
           >
             Redeem Now!
           </button>
@@ -72,9 +74,7 @@
 <script setup lang="ts">
 import { genCouponCode } from '~/utils/genCoupCode';
 import { CouponInfo } from '~/globalTypes';
-const emits = defineEmits(['close'])
-const redeemedCoupon = ref(false)
-
+const emits = defineEmits(['close', 'redeemCoupon'])
 
 const props = defineProps({
   show: Boolean,

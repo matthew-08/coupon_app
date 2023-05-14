@@ -1,14 +1,15 @@
-import { FalseLiteral } from 'typescript'
+import { FalseLiteral } from 'typescript';
 
-type FALibraries = 'fa-brands' | 'fa'
+type FALibraries = 'fa-brands' | 'fa';
 
 interface CouponInfo {
-    deal: string
-    id: number
-    company: string
-    validThroughStart: string
-    validThroughEnd: string
-    icon: [FALibraries, string]
+  deal: string;
+  id: number;
+  company: string;
+  validThroughStart: string;
+  validThroughEnd: string;
+  icon: [FALibraries, string];
+  redeemed: boolean;
 }
 
-export { CouponInfo }
+export { CouponInfo };
