@@ -1,28 +1,28 @@
 <template>
   <div
     id="show-modal"
-    class="flex flex-col items-center p-4 shadow-lg border rounded-2xl"
+    class="flex flex-col items-center p-4 shadow-md border rounded-2xl cursor-pointer mb-5"
     @click="$emit('showModal')"
   >
     <FontAwesomeIcon
-      :icon="['fa-brands', 'playstation']"
+      :icon="couponInfo.icon"
       size="5x"
     />
     <h2
       class="font-bold font-sans mr-auto mb-1 mt-4"
     >
-      25% Off
+      {{ couponInfo.deal }}
     </h2>
     <div
-      class="flex justify-between gap-3 text-sm"
+      class="flex flex-row justify-between gap-3 text-sm w-full"
     >
       <p class="text-cyan-500">
-        Playstation
+        {{ couponInfo.company }}
       </p>
       <p
         class="text-gray-500"
       >
-        5/3 - 5/5
+        {{ couponInfo.validThroughStart }} - {{ couponInfo.validThroughEnd }}
       </p>
     </div>
   </div>
@@ -30,6 +30,16 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import type { CouponInfo } from '../globalTypes'
+import { watch } from 'vue'
+const props = defineProps({
+    couponInfo: {
+        type: Object as PropType<CouponInfo>,
+        required: true,
+    }
+})
+
+
 
 const emits = defineEmits(['showModal'])
 </script>

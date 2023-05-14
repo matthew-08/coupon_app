@@ -5,6 +5,7 @@ interface CouponInfo {
     company: String,
     expDate: String,
 }
+const emits = defineEmits(['close'])
 const props = defineProps({
   show: Boolean,
   couponInfo: {
