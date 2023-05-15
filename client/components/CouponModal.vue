@@ -21,7 +21,7 @@
         </div>
         <div class="modal-body flex flex-col items-center gap-3">
           <FAIcon
-            :icon="couponInfo.icon"
+            :icon="['fa-brands', couponInfo.icon]"
             size="5x"
           />
           <h1 class="text-2xl font-bold">

@@ -6,7 +6,7 @@
   >
     <div>
       <FAIcon
-        :icon="couponInfo.icon"
+        :icon="['fa-brands', couponInfo.icon]"
         size="5x"
       />
     </div>
@@ -33,7 +33,6 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import type { CouponInfo } from '../globalTypes'
-import {genCouponCode} from '~/utils/genCoupCode';
 const props = defineProps({
     couponInfo: {
         type: Object as PropType<CouponInfo>,

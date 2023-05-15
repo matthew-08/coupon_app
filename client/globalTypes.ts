@@ -8,7 +8,7 @@ interface CouponInfo {
   company: string;
   validThroughStart: string;
   validThroughEnd: string;
-  icon: [FALibraries, string];
+  icon: string;
   redeemed: boolean;
 }
 

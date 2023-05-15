@@ -30,96 +30,22 @@ import { definePageMeta } from '~/.nuxt/imports';
 definePageMeta({
   middleware: 'protect-route'
 })
+const coupons = ref<CouponInfo[]>([])
+
+if(process.client) {
+  await fetch('http://localhost:3000/api/coupons', {
+    headers: {
+      authorization: `Bearer ${getToken()}`
+    }
+  })
+  .then(res => res.json())
+  .then(r => coupons.value = r)
+}
+
 
 
 const modalCoupon = ref<CouponInfo>({} as CouponInfo)
 
-const coupons = ref<CouponInfo[]>([{
-  deal: '10% Cashback',
-  id: 1,
-  company: 'Playstation',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'playstation'],
-  redeemed: false,
-}, {
-  deal: '5% Off',
-  id: 3,
-  company: 'Dropbox',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'dropbox'],
-  redeemed: false,
-}, {
-  deal: '15% Off',
-  id: 4,
-  company: 'Steam',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'steam'],
-  redeemed: false,
-
-}, {
-  deal: '15% Off',
-  id: 5,
-  company: 'Google',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'google-wallet'],
-  redeemed: false,
-
-}, {
-  deal: '15% Off',
-  id: 6,
-  company: 'Apple Wallet',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'apple-pay'],
-  redeemed: false,
-
-}, {
-  deal: '15% Off',
-  id: 7,
-  company: 'Battle.net',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'battle-net'],
-  redeemed: false,
-
-}, {
-  deal: '15% Off',
-  id: 8,
-  company: 'Itunes',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'itunes'],
-  redeemed: false,
-
-}, {
-  deal: '15% Off',
-  id: 9,
-  company: 'Ebay  ',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'ebay'],
-  redeemed: false,
-}, {
-  deal: '15% Off',
-  id: 10,
-  company: 'Amazon Pay',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'amazon-pay'],
-  redeemed: false,
-}, {
-  deal: '15% Off',
-  id: 11,
-  company: 'Audible',
-  validThroughStart: '5/3',
-  validThroughEnd: '5/5',
-  icon: ['fa-brands', 'audible'],
-  redeemed: false,
-},])
 
 
 const showModal = ref(false)
