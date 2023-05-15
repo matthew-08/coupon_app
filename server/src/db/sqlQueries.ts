@@ -52,6 +52,18 @@ const sqlQueries = {
                 [userId]
             )
         },
+        async redeemCoupon(userId: string, couponId: string) {
+            const currentDate = Date.now().toString()
+            const redeemedCoupon = pgClient.query(
+                `
+                INSERT INTO user_coupon(user_id, coupon_id, redeemedat, redeemed)
+                VALUES($1, $2, $3, $4)
+                RETURNING *
+                `,
+                [userId, couponId, currentDate, true]
+            )
+            return redeemedCoupon
+        },
     },
 }
 

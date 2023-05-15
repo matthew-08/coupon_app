@@ -14,6 +14,7 @@ import {
     getAllCouponsHandler,
     redeemCouponHandler,
 } from '../controller/coupon.controller'
+import { zCouponSchema } from '../schema/coupon.schema'
 
 const routes = (app: Express) => {
     app.get('/healthcheck', (req, res) => {
@@ -26,7 +27,12 @@ const routes = (app: Express) => {
         passAuthHeader,
         getAllCouponsHandler
     )
-    app.put('/api/coupons/:id', redeemCouponHandler)
+    app.put(
+        '/api/coupons/:id',
+        validateSchema(zCouponSchema),
+        passAuthHeader,
+        redeemCouponHandler
+    )
     // USER
     app.post(
         '/api/users',

@@ -73,5 +73,4 @@ const seedCoupons = async () => {
 
 seedCoupons().then((res) => {
     console.log(`Inserted ${couponData.length} tables.`)
-    process.exit()
 })
