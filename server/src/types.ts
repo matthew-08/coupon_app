@@ -22,4 +22,16 @@ export interface CouponInfo {
     validThroughStart: string
     validThroughEnd: string
     icon: string
+    redeemed: boolean
+}
+
+// DB
+export interface QueryAllCoupons {
+    validthroughstart: string
+    validthroughend: string
+    redeemed: null | boolean
+    icon: string
+    deal: string
+    company: string
+    id: number
 }

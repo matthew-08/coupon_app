@@ -1,6 +1,7 @@
 import { UserSessionInput } from '../schema/session.schema'
 import { CreateUserInput } from '../schema/user.schema'
 import { CouponInfo, UserDBInsertInput } from '../types'
+import { formatCoupons } from '../utils/formatData'
 import sqlQueries from './sqlQueries'
 
 const database = {
@@ -13,8 +14,9 @@ const database = {
         },
     },
     coupons: {
-        async getAllCoupons(): Promise<CouponInfo[]> {
-            return sqlQueries.coupons.getAllCoupons()
+        async getAllCoupons(userId: string): Promise<CouponInfo[]> {
+            const couponData = await sqlQueries.coupons.getAllCoupons(userId)
+            return formatCoupons(couponData)
         },
         async redeemCoupon(userId: string, couponId: string) {
             return sqlQueries.coupons.redeemCoupon(userId, couponId)

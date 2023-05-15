@@ -43,7 +43,16 @@ const sqlQueries = {
     },
     coupons: {
         async getAllCoupons(userId: string) {
-            const coupons = pgClient.query(
+            console.log(userId)
+            const coupons: QueryResult<{
+                validthroughstart: string
+                validthroughend: string
+                redeemed: null | boolean
+                icon: string
+                deal: string
+                company: string
+                id: number
+            }> = await pgClient.query(
                 `
             SELECT coupon.*, user_coupon.redeemed FROM coupon
             LEFT JOIN user_coupon
@@ -51,6 +60,7 @@ const sqlQueries = {
             `,
                 [userId]
             )
+            return coupons.rows
         },
         async redeemCoupon(userId: string, couponId: string) {
             const currentDate = Date.now().toString()

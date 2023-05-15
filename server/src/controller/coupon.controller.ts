@@ -7,11 +7,13 @@ const getAllCouponsHandler = async (
     res: Response<{}, { accessToken: string }>
 ) => {
     const getJwt = await verifyJwt(res.locals.accessToken)
-    if (!getJwt.valid) {
+    if (!getJwt.valid || !getJwt.decoded) {
         return res.status(400).send('Invalid access token')
     }
-    console.log(getJwt.decoded)
-    await database.coupons.getAllCoupons()
+    const { id: userId } = getJwt.decoded
+    console.log(userId)
+    const allCoupons = await database.coupons.getAllCoupons(userId)
+    return res.status(200).json(allCoupons)
 }
 
 const redeemCouponHandler = async (
@@ -25,7 +27,7 @@ const redeemCouponHandler = async (
     }
     const { id: userId } = getJwt.decoded
     await database.coupons.redeemCoupon(userId, couponId)
-    console.log('test done')
+    return res.status(200).end()
 }
 
 export { getAllCouponsHandler, redeemCouponHandler }
