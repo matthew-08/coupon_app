@@ -6,4 +6,10 @@ export default defineNuxtConfig({
     plugins: [eslintPlugin()],
   },
   css: ['@fortawesome/fontawesome-svg-core/styles.css'],
+  runtimeConfig: {
+    public: {
+      TEST_EMAIL: process.env.NUXT_CREDENTIAL_EMAIL,
+      TEST_PASSWORD: process.env.NUXT_CREDENTIAL_PASSWORD,
+    },
+  },
 });

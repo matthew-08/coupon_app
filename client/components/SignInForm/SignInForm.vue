@@ -1,7 +1,8 @@
 <template>
   <form
-    class="flex flex-col p-5 justify-center items-center 
-    shadow-md max-w-md m-auto"
+    class="flex flex-col p-5 justify-center 
+    items-center box-border  bg-white
+    w-full shadow-xl max-w-md m-auto mt-5 md:mt-7"
     @submit="attemptPost"
   >
     <h1
@@ -30,7 +31,7 @@
       >Click here.</span></small>
     <button
       class="flex justify-center w-full border-2 mt-3 py-3 text-2xl 
-      font-bold bg text-black bg-cyan-200 border-none"
+      font-bold bg text-black bg-cyan-300 border-none"
       @click="attemptPost"
     >
       <template 
@@ -46,6 +47,14 @@
         />
       </template>
     </button>
+    <button
+      type="button" 
+      class="flex justify-center w-full border-2 mt-3 py-3 text-2xl 
+      font-bold bg text-black bg-gray-300 border-none"
+      @click="fillTestCredentials"
+    >
+      Test Credentials
+    </button>
   </form>
 </template>
 
@@ -55,6 +64,9 @@ import { ref } from 'vue';
 import { appImages } from '~/utils/appImages';
 import api from '~/utils/apiFetch'
 import { HalfCircleSpinner } from 'epic-spinners'
+
+const runtimeConfig = useRuntimeConfig()
+
 
 const loading = ref(false)
 
@@ -76,6 +88,12 @@ const attemptPost = async (e:Event) => {
       setLocalStorage(res.accessToken)
       navigateTo('/coupons')
     })
+}
+
+const fillTestCredentials = () => {
+    runtimeConfig.public.TEST_EMAIL
+    formInputs.value.email = runtimeConfig.public.TEST_EMAIL as string
+    formInputs.value.password = runtimeConfig.public.TEST_PASSWORD as string
 }
 
 </script>
