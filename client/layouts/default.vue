@@ -3,6 +3,7 @@
   <main class="flex flex-col bg-slate-50 min-h-screen">
     <AppNav />
     <slot />
+    <AppFooter />
   </main>
 </template>
 

@@ -1,7 +1,9 @@
 <template>
   <div
     id="show-modal"
-    class="flex flex-col items-center p-4 shadow-md border rounded-2xl cursor-pointer mb-5"
+    class="flex flex-col items-center p-4 shadow-md border rounded-2xl 
+    cursor-pointer mb-5 hover:scale-105 transition-all"
+    :class="couponInfo.redeemed ? 'bg-zinc-200' : ''"
     @click="$emit('showModal', couponInfo.id)"
   >
     <div>
@@ -37,7 +39,7 @@ const props = defineProps({
     couponInfo: {
         type: Object as PropType<CouponInfo>,
         required: true,
-    }
+    },
 })
 
 

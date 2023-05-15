@@ -1,10 +1,16 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <section
-    class="grid sm: grid-cols-2 gap-2" 
+    class="max-w-screen-xl grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 px-2 mx-auto" 
   >
+    <LoadingCard
+      v-for="(loadingCard, index) in loadingCards"
+      v-show="loading"
+      :key="index"
+    />
     <CouponCard
-      v-for="(coupon) in coupons" 
+      v-for="(coupon) in coupons"
+      v-show="!loading" 
       :key="coupon.id"
       :coupon-info="coupon"
       @show-modal="handleCardClick"
@@ -26,20 +32,36 @@ import { Teleport } from 'vue';
 import { ref } from 'vue'
 import { CouponInfo } from '~/globalTypes';
 import { definePageMeta } from '~/.nuxt/imports';
+import { convertDate } from '~/utils/convertDate'
+
+const loading = ref(true )
 
 definePageMeta({
   middleware: 'protect-route'
 })
 const coupons = ref<CouponInfo[]>([])
+const loadingCards = ref(Array(10))
+
+watch(() => {
+  console.log(coupons.value)
+}, {})
 
 if(process.client) {
+  loading.value = true
   await fetch('http://localhost:3000/api/coupons', {
     headers: {
       authorization: `Bearer ${getToken()}`
     }
   })
   .then(res => res.json())
-  .then(r => coupons.value = r)
+  .then((r: CouponInfo[]) => {
+    coupons.value = r.map(r => {
+    r.validThroughStart = '5/01'
+    r.validThroughEnd = convertDate(r.validThroughEnd)
+    return r
+  })
+  loading.value = false 
+})
 }
 
 
