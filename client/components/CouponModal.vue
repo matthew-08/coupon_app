@@ -4,7 +4,7 @@
       v-if="show"
       class="modal-overlay"
     >
-      <div class="modal-container relative flex flex-col items-center">
+      <div class="modal-container w-80 sm:w-6/12 sm:max-w-md flex flex-col items-center relative">
         <div
           class="absolute right-3 top-3 cursor-pointer"
           @click="$emit('close')"
@@ -101,7 +101,6 @@ const props = defineProps({
 }
 
 .modal-container {
-  width: 320px;
   margin: auto;
   padding: 25px 30px;
   background-color: #fff;

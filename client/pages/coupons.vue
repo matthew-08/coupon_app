@@ -1,7 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <section
-    class="max-w-screen-xl grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 px-2 mx-auto" 
+    class="max-w-screen-xl grid gap-2 grid-cols-2 sm:grid-cols-3 
+    md:grid-cols-4 px-2 mx-auto" 
   >
     <LoadingCard
       v-for="(loadingCard, index) in loadingCards"
@@ -33,6 +34,7 @@ import { ref } from 'vue'
 import { CouponInfo } from '~/globalTypes';
 import { definePageMeta } from '~/.nuxt/imports';
 import { convertDate } from '~/utils/convertDate'
+import api from '~/utils/apiFetch';
 
 const loading = ref(true)
 
@@ -42,17 +44,9 @@ definePageMeta({
 const coupons = ref<CouponInfo[]>([])
 const loadingCards = ref(Array(10))
 
-watch(() => {
-  console.log(coupons.value)
-}, {})
-
 if(process.client) {
   loading.value = true
-  await fetch('http://localhost:3000/api/coupons', {
-    headers: {
-      authorization: `Bearer ${getToken()}`
-    }
-  })
+  await api.makeFetch('/api/coupons')
   .then(res => res.json())
   .then((r: CouponInfo[]) => {
     coupons.value = r.map(r => {
@@ -95,7 +89,3 @@ const handleRedeemCoupon = (coupId: number) => {
 
 
 </script>
-
-<style scoped>
-
-</style>

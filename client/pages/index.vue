@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import { useState } from '#app';
 
 </script>
 
