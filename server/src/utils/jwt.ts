@@ -1,7 +1,18 @@
-import jwt from 'jsonwebtoken'
+import jwt, { Jwt } from 'jsonwebtoken'
 import appEnv from '../appConfig/env'
 
 const privateKey: string | undefined = appEnv.PRIVATE_KEY
+
+type Payload = {
+    valid: boolean
+    expired: boolean
+    decoded: Decoded | null
+}
+
+interface Decoded {
+    id: string
+    email: string
+}
 
 const signJwt = async (
     payloadToSign: object,
@@ -16,13 +27,16 @@ const signJwt = async (
     return signedJwt
 }
 
-const verifyJwt = async (token: string) => {
+const verifyJwt = async <T>(token: string): Promise<Payload> => {
     try {
         const decoded = jwt.verify(token, appEnv.PRIVATE_KEY as string)
+        if (typeof decoded === 'string') {
+            throw new Error('JWT error')
+        }
         return {
             valid: true,
             expired: false,
-            decoded,
+            decoded: decoded as Decoded[T],
         }
     } catch (error: any) {
         return {
@@ -32,5 +46,7 @@ const verifyJwt = async (token: string) => {
         }
     }
 }
+
+verifyJwt<''>
 
 export { signJwt, verifyJwt }
