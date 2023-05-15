@@ -67,10 +67,14 @@ const attemptPost = async (e:Event) => {
     e.preventDefault()
     loading.value = true
     await api.makeFetch('/api/sessions', 'POST', formInputs.value)
-    .then((res) => res.json())
     .then((res) => {
-      console.log(res)
+      if(res.status === 200) {
+        return res.json()
+      }
+    })
+    .then((res) => {
       setLocalStorage(res.accessToken)
+      navigateTo('/coupons')
     })
 }
 

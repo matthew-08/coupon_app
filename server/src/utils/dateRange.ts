@@ -3,7 +3,7 @@ type DateFormat = `${string}.${string}.${string}`
 const convertToUnix = (date: string) =>
     Math.floor(new Date(date).getTime() / 1000)
 
-const dateRange = (
+const genDateRange = (
     start: DateFormat,
     end: DateFormat
 ): {
@@ -24,4 +24,4 @@ const dateRange = (
     }
 }
 
-const testFunc = dateRange('2023.05.15', '2023.06.15')
+export { genDateRange }

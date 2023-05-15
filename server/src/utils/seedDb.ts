@@ -1,5 +1,5 @@
 import pgClient from '../appConfig/dbConnect'
-import genDateRange from './dateRange'
+import { genDateRange } from './dateRange'
 
 const couponData = [
     {
@@ -60,12 +60,18 @@ const seedCoupons = async () => {
             unixRandomStart: validThroughStart,
             unixRandomEnd: validThroughEnd,
         } = genDateRange('2023.05.01', '2023.07.31')
+        console.log(validThroughStart)
         await pgClient.query(
             `INSERT INTO coupon
-                (deal, company, validthroughstart, validthroughend, icon)
-                values($1, $2, $3, $4)
+            (deal, company, validthroughstart, validthroughend, icon)
+            values($1, $2, $3, $4, $5)
                 `,
             [deal, company, validThroughStart, validThroughEnd, icon]
         )
     })
 }
+
+seedCoupons().then((res) => {
+    console.log(`Inserted ${couponData.length} tables.`)
+    process.exit()
+})
