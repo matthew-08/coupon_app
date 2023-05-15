@@ -34,7 +34,7 @@ import { CouponInfo } from '~/globalTypes';
 import { definePageMeta } from '~/.nuxt/imports';
 import { convertDate } from '~/utils/convertDate'
 
-const loading = ref(true )
+const loading = ref(true)
 
 definePageMeta({
   middleware: 'protect-route'
@@ -60,7 +60,7 @@ if(process.client) {
     r.validThroughEnd = convertDate(r.validThroughEnd)
     return r
   })
-  loading.value = false 
+  loading.value = false
 })
 }
 
