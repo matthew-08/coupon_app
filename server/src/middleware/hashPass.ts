@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { CreateUserInput } from '../schema/user.schema'
-import bcrpyt, { hash } from 'bcrypt'
+import bcrpyt from 'bcrypt'
 import appEnv from '../appConfig/env'
 import { UserDBInsertInput } from '../types'
 
