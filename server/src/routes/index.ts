@@ -15,7 +15,7 @@ const routes = (app: Express) => {
         res.sendStatus(200)
     })
     // COUPONS
-    app.get('/api/coupons')
+    app.get('/api/coupons', getAllCouponsHandler)
     // USER
     app.post(
         '/api/users',

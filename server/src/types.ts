@@ -14,3 +14,12 @@ export interface UserComparePass {
 export interface UserDBInsertInput extends CreateUserInput {
     hashPass: string | null
 }
+
+export interface CouponInfo {
+    deal: string
+    id: number
+    company: string
+    validThroughStart: string
+    validThroughEnd: string
+    icon: string
+}

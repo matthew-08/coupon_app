@@ -41,6 +41,18 @@ const sqlQueries = {
             return user.rows[0]
         },
     },
+    coupons: {
+        async getAllCoupons(userId: string) {
+            const coupons = pgClient.query(
+                `
+            SELECT coupon.*, user_coupon.redeemed FROM coupon
+            LEFT JOIN user_coupon
+            ON user_id=$1 and user_coupon.coupon_id = coupon.id
+            `,
+                [userId]
+            )
+        },
+    },
 }
 
 export default sqlQueries

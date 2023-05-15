@@ -60,7 +60,7 @@ const seedCoupons = async () => {
             unixRandomStart: validThroughStart,
             unixRandomEnd: validThroughEnd,
         } = genDateRange('2023.05.01', '2023.07.31')
-        console.log(validThroughStart)
+        console.log(`inserting coupon "Company: ${company}, Deal: ${deal}"`)
         await pgClient.query(
             `INSERT INTO coupon
             (deal, company, validthroughstart, validthroughend, icon)
