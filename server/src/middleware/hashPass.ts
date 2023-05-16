@@ -9,11 +9,11 @@ const hashPass = async (
     next: NextFunction
 ) => {
     try {
+        if (!appEnv.SALT_ROUNDS) {
+            throw new Error()
+        }
         const { password } = req.body
-        const passHash = await bcrpyt.hash(
-            password,
-            appEnv.SALT_ROUNDS as string
-        )
+        const passHash = await bcrpyt.hash(password, appEnv.SALT_ROUNDS)
         req.body = {
             ...req.body,
             hashPass: passHash,
