@@ -1,4 +1,6 @@
 # Coupon Application
+A simple coupon redemption application built with Nuxt, Vue, Express, and Postgres.
+
 ![image](https://github.com/matthew-08/coupon_app/assets/114291570/2fb94163-3c9d-4e91-ab57-ed3ae9a688e1)
 
 # Setup
