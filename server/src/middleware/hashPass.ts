@@ -15,7 +15,7 @@ const hashPass = async (
         const { password } = req.body
         console.log('Password')
         console.log(req.body)
-        const passHash = await bcrpyt.hash(password, appEnv.SALT_ROUNDS)
+        const passHash = await bcrpyt.hash(password, Number(appEnv.SALT_ROUNDS))
         req.body = {
             ...req.body,
             hashPass: passHash,
@@ -23,7 +23,7 @@ const hashPass = async (
         next()
     } catch (e: any) {
         console.log(e)
-        return res.status(400).send(e.errors)
+        return res.status(400).send(e)
     }
 }
 
