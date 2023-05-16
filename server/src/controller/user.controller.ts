@@ -10,6 +10,8 @@ const handleCreateUser = async (
     try {
         const user = await appDatabase.users.createUser(req.body)
         const jwt = await signJwt(user)
+        console.log('jwt')
+        console.log(jwt)
         return res.status(200).json({
             ...user,
             accessToken: jwt,
