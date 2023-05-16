@@ -8,14 +8,12 @@ import routes from './routes'
 const makeApp = (appDatabase: typeof database) => {
     // Create express app
     const app = express()
-    // Apply application level middleware
+    // Apply app middleware
     applyMiddleware(app)
     // Start server
     const server = http.createServer(app)
 
-    server.listen(env.APP_PORT, () => {
-        console.log(`Server is listening on ${env.APP_PORT}`)
-    })
+    server.listen(process.env.port, '0.0.0.0')
 
     routes(app)
 
