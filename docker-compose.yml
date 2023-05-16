@@ -4,8 +4,22 @@ services:
     restart: unless-stopped
     volumes:
       - ./server/seed.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
-      - pgg_data:/var/lib/postgresql/data/
+      - app_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+  nuxt:
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    image: nuxt_dev
+    container_name: nuxt_dev
+    command: npm run dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
 volumes:
-  pgg_data:
+  app_data:
