@@ -1,7 +1,13 @@
 <template>
   <div class="relative mb-6 flex w-full flex-col">
-    <img class="absolute bottom-4 ml-2 w-6 filter" :src="iconImg" />
-    <label class="mb-3 text-2xl" for="">{{ labelText + ':' }}</label>
+    <img
+      class="absolute bottom-4 ml-2 w-6 filter"
+      :src="iconImg"
+    >
+    <label
+      class="mb-3 text-2xl"
+      for=""
+    >{{ labelText + ':' }}</label>
     <input
       :type="passwordField ? 'password' : 'text'"
       :placeholder="placeholderText"
@@ -10,7 +16,7 @@
       @input="
         $emit('update:modelValue', ($event.target as HTMLInputElement).value)
       "
-    />
+    >
   </div>
 </template>
 

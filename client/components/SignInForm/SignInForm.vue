@@ -4,7 +4,9 @@
     items-center justify-center bg-white p-5 shadow-xl md:mt-7"
     @submit="attemptPost"
   >
-    <h1 class="text-3xl">Sign-In</h1>
+    <h1 class="text-3xl">
+      Sign-In
+    </h1>
     <FormInput
       v-model="formInputs.email"
       placeholder-text="Enter Username"
@@ -21,14 +23,15 @@
     <small class="mr-auto font-bold">
       Forgot your password?
       <span class="cursor-pointer text-cyan-500">Click here.</span>
-    </small
-    >
+    </small>
     <button
       class="bg mt-3 flex w-full justify-center border-2 border-none
        bg-cyan-300 py-3 text-2xl font-bold text-black"
       @click="attemptPost"
     >
-      <template v-if="!loading"> Login </template>
+      <template v-if="!loading">
+        Login
+      </template>
       <template v-else>
         <HalfCircleSpinner :size="30" />
       </template>
@@ -48,10 +51,11 @@
 import FormInput from './FormInput.vue';
 import { ref } from 'vue';
 import { appImages } from '~/utils/appImages';
-import api from '~/utils/apiFetch';
 import { HalfCircleSpinner } from 'epic-spinners';
 
+
 const runtimeConfig = useRuntimeConfig();
+const { makeFetch } = useCustomFetch(runtimeConfig.REST_API as string)
 
 const loading = ref(false);
 
@@ -63,8 +67,7 @@ const formInputs = ref({
 const attemptPost = async (e: Event) => {
   e.preventDefault();
   loading.value = true;
-  await api
-    .makeFetch('/api/sessions', 'POST', formInputs.value)
+  await makeFetch('/api/sessions', 'POST', formInputs.value)
     .then((res) => {
       if (res.status === 200) {
         return res.json();

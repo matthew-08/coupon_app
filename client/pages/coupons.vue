@@ -21,7 +21,7 @@
     <CouponModal
       :show="showModal"
       :coupon-info="modalCoupon"
-      :loading-redeem="loadingRedeem"
+      :loading-redeem="redeemLoading"
       @close="showModal = false"
       @redeem-coupon="handleRedeemCoupon"
     />
@@ -33,26 +33,32 @@ import { Teleport } from 'vue';
 import { ref } from 'vue';
 import { CouponInfo } from '~/globalTypes';
 import { definePageMeta } from '~/.nuxt/imports';
-import api from '~/utils/apiFetch';
 import { formatCoupons } from '~/utils/formatCoupons';
+import type { RedemptionInfo } from '~/globalTypes'
+import { useCustomFetch } from '~/composables/useCustomFetch'
+
+
+const config = useRuntimeConfig()
+
+const { makeFetch } = useCustomFetch(config.public.REST_API)
 
 definePageMeta({
   middleware: 'protect-route',
 });
 
 const couponsLoading = ref(true);
+const coupons = ref<CouponInfo[]>([]);
+
+
 const showModal = ref(false);
 const modalCoupon = ref<CouponInfo>({} as CouponInfo);
 
-
-const coupons = ref<CouponInfo[]>([]);
-const loadingRedeem = ref(false);
+const redeemLoading = ref(false);
 const loadingCards = ref(Array(10));
 
 if (process.client) {
   couponsLoading.value = true;
-  await api
-    .makeFetch('/api/coupons')
+  await makeFetch('/api/coupons')
     .then((res) => res.json())
     .then((r: CouponInfo[]) => {
       coupons.value = formatCoupons(r)
@@ -62,12 +68,15 @@ if (process.client) {
 
 const findCoupon = (id: number) =>
   coupons.value.find((coupon) => coupon.id === id);
+
+
 const setModalCard = (coupId: number) => {
   const selectedCoupon = findCoupon(coupId);
   if (selectedCoupon) {
     modalCoupon.value = selectedCoupon;
   }
 };
+
 const handleCardClick = (couponId: number) => {
   setModalCard(couponId);
   return (showModal.value = !showModal.value);
@@ -78,16 +87,18 @@ const handleRedeemCoupon = async (coupId: number) => {
   if (!redeemedCoupon) {
     return;
   }
-  loadingRedeem.value = true;
-  await api
-    .makeFetch(`/api/coupons/${coupId}`, 'PUT')
+  redeemLoading.value = true;
+  await makeFetch(`/api/coupons/${coupId}`, 'PUT')
     .then((res) => res.json())
-    .then((r: { code: string; redeemedAt: string }) => {
-      redeemedCoupon.code = r.code;
-      redeemedCoupon.redeemedAt = r.redeemedAt;
+    .then((r: RedemptionInfo) => {
+      // Create new object with redemption info
+      const formattedCoupon = formatCoupons(redeemedCoupon, r)
+      // Remove old coupon
+      coupons.value.filter(c => c.id !== redeemedCoupon.id)
+      // Replace with updated coupon
+      coupons.value.push(formattedCoupon)
+ 
     });
-  loadingRedeem.value = false;
-  redeemedCoupon.redeemed = true;
-  console.log(redeemedCoupon);
+  redeemLoading.value = false;
 };
 </script>

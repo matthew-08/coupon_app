@@ -11,7 +11,12 @@ interface CouponInfo {
   icon: string;
   redeemed: boolean;
   code?: string;
+  redeemedAt?: string | null;
+}
+
+interface RedemptionInfo {
+  code: string;
   redeemedAt: string;
 }
 
-export { CouponInfo };
+export { CouponInfo, RedemptionInfo };

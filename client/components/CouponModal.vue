@@ -49,9 +49,7 @@
             <template v-if="!loadingRedeem">
               {{
                 couponInfo.redeemed
-                  ? `Redeemed on ${convertDate(couponInfo.redeemedAt, {
-                      redeemdAt: true,
-                    })}`
+                  ? `Redeemed on ${couponInfo.redeemedAt}`
                   : 'Redeem now!'
               }}
             </template>
