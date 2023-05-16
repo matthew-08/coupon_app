@@ -4,11 +4,11 @@ services:
     restart: unless-stopped
     volumes:
       - ./server/seed.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
-      - app_data:/var/lib/postgresql/data/
+      - coupon_database:/var/lib/postgresql/data/
     environment:
       - POSTGRES_PASSWORD=password
     ports:
-      - '5432:5432'
+      - '5435:5435'
   nuxt:
     build:
       dockerfile: Dockerfile
@@ -16,7 +16,26 @@ services:
     image: nuxt_dev
     container_name: nuxt_dev
     command: npm run dev
+    environment:
+      - NUXT_CREDENTIAL_EMAIL=testudeg00@gmail.com
+      - NUXT_CREDENTIAL_PASSWORD=e?yJhbGciOiJIUzI1Ni
     ports:
       - '3000:3000'
+  backend:
+    depends_on:
+      - db
+    build:
+      dockerfile: Dockerfile
+      context: ./server
+    image: express_dev
+    container_name: express_dev
+    ports:
+      - '4000:4000'
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DATABASE=coupon_app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - PORT=4000
 volumes:
-  app_data:
+  coupon_database:

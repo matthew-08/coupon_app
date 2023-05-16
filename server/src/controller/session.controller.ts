@@ -26,7 +26,7 @@ export const handleGetSession = async (
     req: Request,
     res: Response<{}, { accessToken: string }>
 ) => {
-    const result = await verifyJwt<''>(res.locals.accessToken)
+    const result = await verifyJwt(res.locals.accessToken)
     if (result.valid) {
         return res.status(200).send(result)
     } else {

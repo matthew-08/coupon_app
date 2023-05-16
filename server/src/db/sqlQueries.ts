@@ -42,7 +42,6 @@ const sqlQueries = {
     },
     coupons: {
         async getAllCoupons(userId: string) {
-            console.log(userId)
             const coupons: QueryResult<QueryAllCoupons> = await pgClient.query(
                 `
             SELECT coupon.*, user_coupon.redeemed, user_coupon.code, user_coupon.redeemedat 

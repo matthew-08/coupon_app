@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
 import { Request, Response, NextFunction } from 'express'
+import { appDatabase } from '..'
 import database from '../db/database'
 import { UserSessionInput } from '../schema/session.schema'
 
@@ -9,7 +10,7 @@ const passCompare = async (
     next: NextFunction
 ) => {
     const { password: pTextPass } = req.body
-    const getPass = await database.users.getUser(req.body)
+    const getPass = await appDatabase.users.getUser(req.body)
     if (!getPass) {
         return res.status(400).send('Invalid email')
     }

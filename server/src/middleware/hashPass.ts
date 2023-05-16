@@ -13,8 +13,6 @@ const hashPass = async (
             throw new Error()
         }
         const { password } = req.body
-        console.log('Password')
-        console.log(req.body)
         const passHash = await bcrpyt.hash(password, Number(appEnv.SALT_ROUNDS))
         req.body = {
             ...req.body,

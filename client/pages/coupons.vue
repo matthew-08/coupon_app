@@ -54,7 +54,7 @@ const showModal = ref(false);
 const modalCoupon = ref<CouponInfo>({} as CouponInfo);
 
 const redeemLoading = ref(false);
-const loadingCards = ref(Array(10));
+const loadingCards = ref(Array(12));
 
 if (process.client) {
   couponsLoading.value = true;

@@ -77,7 +77,10 @@ const attemptPost = async (e: Event) => {
     .then((res) => {
       setLocalStorage(res.accessToken);
       navigateTo('/coupons');
-    });
+    })
+    .catch(e => {
+      loading.value = false
+    })
 };
 
 const fillTestCredentials = () => {
