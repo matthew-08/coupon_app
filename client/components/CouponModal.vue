@@ -1,6 +1,9 @@
 <template>
   <Transition name="modal">
-    <div v-if="show" class="modal-overlay">
+    <div
+      v-if="show"
+      class="modal-overlay"
+    >
       <div
         class="modal-container relative flex w-80 flex-col 
         items-center sm:w-6/12 sm:max-w-md"
@@ -9,24 +12,34 @@
           class="absolute right-3 top-3 cursor-pointer"
           @click="$emit('close')"
         >
-          <FAIcon :icon="['fa-solid', 'fa-x']" size="1x" />
+          <FAIcon
+            :icon="['fa-solid', 'fa-x']"
+            size="1x"
+          />
         </div>
         <div class="modal-header mt-5">
-          <h1 class="text-2xl font-bold">Coupon Redemption</h1>
+          <h1 class="text-2xl font-bold">
+            Coupon Redemption
+          </h1>
         </div>
         <div class="modal-body flex flex-col items-center gap-3">
-          <FAIcon :icon="['fa-brands', couponInfo.icon]" size="5x" />
+          <FAIcon
+            :icon="['fa-brands', couponInfo.icon]"
+            size="5x"
+          />
           <h1 class="text-2xl font-bold">
             {{ couponInfo.company }}
           </h1>
           <h1 class="text-center text-lg font-bold">
             {{ couponInfo.deal }}
-            <br />
+            <br>
             {{ couponInfo.validThroughStart }} -
             {{ couponInfo.validThroughEnd }}
           </h1>
           <div>
-            <h2 class="text-1xl mr-auto font-bold">Description:</h2>
+            <h2 class="text-1xl mr-auto font-bold">
+              Description:
+            </h2>
             <p class="text-left">
               Lorem ipsum dolor, sit amet dir adipisicing elit. Officiis, eos.
               Earum magnam dolores porro maxime atque corrupti, tempora quaerat.
@@ -35,7 +48,10 @@
         </div>
 
         <div class="modal-footer flex w-full flex-col items-center">
-          <div v-show="couponInfo.redeemed" class="mb-2 text-center">
+          <div
+            v-show="couponInfo.redeemed"
+            class="mb-2 text-center"
+          >
             <p>Your code is:</p>
             <p class="text-3xl">
               {{ couponInfo.code }}
@@ -54,7 +70,10 @@
               }}
             </template>
             <template v-else>
-              <HalfCircleSpinner class="m-auto" :size="30" />
+              <HalfCircleSpinner
+                class="m-auto"
+                :size="30"
+              />
             </template>
           </button>
           <button
@@ -84,6 +103,7 @@ const props = defineProps({
   },
   loadingRedeem: Boolean,
 });
+
 </script>
 
 <style>

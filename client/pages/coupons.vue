@@ -19,6 +19,7 @@
   </section>
   <Teleport to="body">
     <CouponModal
+      :key="modalCoupon.code"
       :show="showModal"
       :coupon-info="modalCoupon"
       :loading-redeem="redeemLoading"
@@ -93,10 +94,13 @@ const handleRedeemCoupon = async (coupId: number) => {
     .then((r: RedemptionInfo) => {
       // Create new object with redemption info
       const formattedCoupon = formatCoupons(redeemedCoupon, r)
-      // Remove old coupon
-      coupons.value.filter(c => c.id !== redeemedCoupon.id)
-      // Replace with updated coupon
-      coupons.value.push(formattedCoupon)
+      modalCoupon.value = formattedCoupon
+      coupons.value = coupons.value.map(c => {
+        if(c.id === redeemedCoupon.id) {
+          return formattedCoupon
+        }
+        return c
+      })
  
     });
   redeemLoading.value = false;

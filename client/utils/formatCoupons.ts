@@ -13,7 +13,9 @@ function formatCoupons(
     return {
       ...coupons,
       redeemed: true,
-      redeemedAt: redemptionInfo?.redeemedAt,
+      redeemedAt: convertDate(redemptionInfo?.redeemedAt as string, {
+        redeemdAt: true,
+      }),
       code: redemptionInfo?.code,
     };
   }
