@@ -1,5 +1,4 @@
 import { UserSessionInput } from '../schema/session.schema'
-import { CreateUserInput } from '../schema/user.schema'
 import { CouponInfo, UserDBInsertInput } from '../types'
 import { formatCoupons } from '../utils/formatData'
 import sqlQueries from './sqlQueries'

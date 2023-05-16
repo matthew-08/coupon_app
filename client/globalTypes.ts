@@ -10,6 +10,8 @@ interface CouponInfo {
   validThroughEnd: string;
   icon: string;
   redeemed: boolean;
+  code?: string;
+  redeemedAt: string;
 }
 
 export { CouponInfo };

@@ -49,7 +49,7 @@
           >
             <p>Your code is:</p>
             <p class="text-3xl">
-              {{ genCouponCode() }}
+              {{ couponInfo.code }}
             </p>
           </div>
           <button
@@ -57,7 +57,21 @@
             :disabled="couponInfo.redeemed"
             @click="$emit('redeemCoupon', couponInfo.id)"
           >
-            Redeem Now!
+            <template 
+              v-if="!loadingRedeem"
+            >
+              {{ couponInfo.redeemed ? `Redeemed on ${convertDate(couponInfo.redeemedAt, {
+                redeemdAt: true,
+              })}` : 'Redeem now!' }}
+            </template>
+            <template
+              v-else
+            >
+              <HalfCircleSpinner
+                class="m-auto"
+                :size="30"
+              />
+            </template>
           </button>
           <button
             class="w-full bg-slate-500 p-2 text-white"
@@ -72,8 +86,10 @@
 </template>
 
 <script setup lang="ts">
+import { HalfCircleSpinner } from 'epic-spinners';
 import { genCouponCode } from '~/utils/genCoupCode';
 import { CouponInfo } from '~/globalTypes';
+import { convertDate } from '~/utils/convertDate';
 const emits = defineEmits(['close', 'redeemCoupon'])
 
 const props = defineProps({
@@ -81,7 +97,8 @@ const props = defineProps({
   couponInfo: {
     type: Object as PropType<CouponInfo>,
     required: true,
-  }
+  },
+  loadingRedeem: Boolean
 })
 </script>
 

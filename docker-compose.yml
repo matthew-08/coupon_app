@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    volumes:
+      - ./server/seed.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+      - pgg_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=password
+volumes:
+  pgg_data:

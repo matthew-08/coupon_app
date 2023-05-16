@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import database from '../db/database'
+import { genCouponCode } from '../utils/genCouponCode'
 import { verifyJwt } from '../utils/jwt'
 
 const getAllCouponsHandler = async (
@@ -26,8 +27,12 @@ const redeemCouponHandler = async (
         return res.status(400).send('Invalid access token')
     }
     const { id: userId } = getJwt.decoded
-    await database.coupons.redeemCoupon(userId, couponId)
-    return res.status(200).end()
+    const { code, redeemedat: redeemedAt } =
+        await database.coupons.redeemCoupon(userId, couponId)
+    return res.status(200).send({
+        code,
+        redeemedAt,
+    })
 }
 
 export { getAllCouponsHandler, redeemCouponHandler }

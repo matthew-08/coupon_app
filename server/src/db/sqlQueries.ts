@@ -1,8 +1,9 @@
 import pgClient from '../appConfig/dbConnect'
 import { QueryResult } from 'pg'
 import { CreateUserInput } from '../schema/user.schema'
-import type { User, UserDBInsertInput } from '../types'
+import type { QueryAllCoupons, User, UserDBInsertInput } from '../types'
 import { UserSessionInput } from '../schema/session.schema'
+import { genCouponCode } from '../utils/genCouponCode'
 
 interface UserPassQuery {
     email: string
@@ -44,17 +45,10 @@ const sqlQueries = {
     coupons: {
         async getAllCoupons(userId: string) {
             console.log(userId)
-            const coupons: QueryResult<{
-                validthroughstart: string
-                validthroughend: string
-                redeemed: null | boolean
-                icon: string
-                deal: string
-                company: string
-                id: number
-            }> = await pgClient.query(
+            const coupons: QueryResult<QueryAllCoupons> = await pgClient.query(
                 `
-            SELECT coupon.*, user_coupon.redeemed FROM coupon
+            SELECT coupon.*, user_coupon.redeemed, user_coupon.code, user_coupon.redeemedat 
+            FROM coupon
             LEFT JOIN user_coupon
             ON user_id=$1 and user_coupon.coupon_id = coupon.id
             `,
@@ -64,15 +58,19 @@ const sqlQueries = {
         },
         async redeemCoupon(userId: string, couponId: string) {
             const currentDate = Date.now().toString()
-            const redeemedCoupon = pgClient.query(
+            const code = genCouponCode()
+            const redeemedCoupon: QueryResult<{
+                code: string
+                redeemedat: string
+            }> = await pgClient.query(
                 `
-                INSERT INTO user_coupon(user_id, coupon_id, redeemedat, redeemed)
-                VALUES($1, $2, $3, $4)
+                INSERT INTO user_coupon(user_id, coupon_id, redeemedat, redeemed, code)
+                VALUES($1, $2, $3, $4, $5)
                 RETURNING *
                 `,
-                [userId, couponId, currentDate, true]
+                [userId, couponId, currentDate, true, code]
             )
-            return redeemedCoupon
+            return redeemedCoupon.rows[0]
         },
     },
 }

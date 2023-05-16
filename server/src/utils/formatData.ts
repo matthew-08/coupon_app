@@ -10,6 +10,8 @@ const formatCoupons = (dbResponse: QueryAllCoupons[]): CouponInfo[] => {
             icon: coupon.icon,
             id: coupon.id,
             redeemed: coupon.redeemed ? true : false,
+            code: coupon.code || null,
+            redeemedAt: coupon.redeemedat,
         }
     })
 }

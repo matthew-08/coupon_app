@@ -23,6 +23,7 @@ export interface CouponInfo {
     validThroughEnd: string
     icon: string
     redeemed: boolean
+    redeemedAt: string
 }
 
 // DB
@@ -34,4 +35,6 @@ export interface QueryAllCoupons {
     deal: string
     company: string
     id: number
+    code?: string
+    redeemedat: string
 }

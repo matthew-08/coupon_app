@@ -21,6 +21,7 @@
     <CouponModal
       :show="showModal"
       :coupon-info="modalCoupon"
+      :loading-redeem="loadingRedeem"
       @close="showModal = false"
       @redeem-coupon="handleRedeemCoupon"
     />
@@ -35,6 +36,7 @@ import { CouponInfo } from '~/globalTypes';
 import { definePageMeta } from '~/.nuxt/imports';
 import { convertDate } from '~/utils/convertDate'
 import api from '~/utils/apiFetch';
+import { CompilerDeprecationTypes } from '@vue/compiler-core';
 
 const loading = ref(true)
 
@@ -42,6 +44,7 @@ definePageMeta({
   middleware: 'protect-route'
 })
 const coupons = ref<CouponInfo[]>([])
+const loadingRedeem = ref(false)
 const loadingCards = ref(Array(10))
 
 if(process.client) {
@@ -77,12 +80,21 @@ const handleCardClick = (couponId: number) => {
   return showModal.value = !showModal.value  
 }
 
-const handleRedeemCoupon = (coupId: number) => {
+const handleRedeemCoupon = async (coupId: number) => {
   const redeemedCoupon = findCoupon(coupId)
-  if(redeemedCoupon) {
-    redeemedCoupon.redeemed = true
-    console.log(redeemedCoupon)
+  if(!redeemedCoupon) {
+    return
   }
+  loadingRedeem.value = true
+  await api.makeFetch(`/api/coupons/${coupId}`, 'PUT')
+  .then(res => res.json())
+  .then((r: { code: string, redeemedAt: string }) => {
+    redeemedCoupon.code = r.code
+    redeemedCoupon.redeemedAt = r.redeemedAt
+  })
+  loadingRedeem.value = false
+  redeemedCoupon.redeemed = true
+  console.log(redeemedCoupon)
 }
 
 

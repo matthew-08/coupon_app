@@ -1,5 +1,5 @@
-type HTTPMethods = 'POST' | 'GET';
-type APIPrefix<T extends string> = `/api/${T}`;
+type HTTPMethods = 'POST' | 'GET' | 'PUT';
+type APIPrefix<T extends string> = `/api/${T}` | `/api/${T}/${number}`;
 type EndPoints = 'users' | 'coupons' | 'sessions';
 
 type Paths = APIPrefix<EndPoints>;
