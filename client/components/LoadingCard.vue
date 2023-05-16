@@ -4,8 +4,13 @@
     items-center justify-center rounded-2xl border shadow-md 
     transition-all hover:scale-105"
   >
-    <HalfCircleSpinner :size="100" color="#26c6da" />
-    <h1 class="mt-4">Loading Coupon...</h1>
+    <HalfCircleSpinner
+      :size="100"
+      color="#26c6da"
+    />
+    <h1 class="mt-4">
+      Loading Coupon...
+    </h1>
   </div>
 </template>
 

@@ -90,9 +90,7 @@
 
 <script setup lang="ts">
 import { HalfCircleSpinner } from 'epic-spinners';
-import { genCouponCode } from '~/utils/genCoupCode';
 import { CouponInfo } from '~/globalTypes';
-import { convertDate } from '~/utils/convertDate';
 const emits = defineEmits(['close', 'redeemCoupon']);
 
 const props = defineProps({

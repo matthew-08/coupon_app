@@ -23,7 +23,9 @@ function formatCoupons(
     coupons.validThroughStart = '5/01';
     coupons.validThroughEnd = convertDate(coupons.validThroughEnd);
     coupons.redeemedAt = coupons.redeemedAt
-      ? convertDate(coupons.redeemedAt)
+      ? convertDate(coupons.redeemedAt, {
+          redeemdAt: true,
+        })
       : null;
     return coupons;
   });

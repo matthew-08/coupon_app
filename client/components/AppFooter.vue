@@ -5,7 +5,10 @@
       href="https://github.com/matthew-08/coupon_app"
     >
       <p class="text-3xl">Github Repo</p>
-      <FAIcon :icon="['fa-brands', 'github-square']" size="3x" />
+      <FAIcon
+        :icon="['fa-brands', 'github-square']"
+        size="3x"
+      />
     </a>
   </footer>
 </template>

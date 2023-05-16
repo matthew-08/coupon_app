@@ -19,7 +19,6 @@
   </section>
   <Teleport to="body">
     <CouponModal
-      :key="modalCoupon.code"
       :show="showModal"
       :coupon-info="modalCoupon"
       :loading-redeem="redeemLoading"
@@ -94,7 +93,9 @@ const handleRedeemCoupon = async (coupId: number) => {
     .then((r: RedemptionInfo) => {
       // Create new object with redemption info
       const formattedCoupon = formatCoupons(redeemedCoupon, r)
+      // Re-render modal coupon with updated data.
       modalCoupon.value = formattedCoupon
+      // Re-render coupons list with updated data.
       coupons.value = coupons.value.map(c => {
         if(c.id === redeemedCoupon.id) {
           return formattedCoupon

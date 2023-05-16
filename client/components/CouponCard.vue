@@ -8,7 +8,10 @@
     @click="$emit('showModal', couponInfo.id)"
   >
     <div>
-      <FAIcon :icon="['fa-brands', couponInfo.icon]" size="5x" />
+      <FAIcon
+        :icon="['fa-brands', couponInfo.icon]"
+        size="5x"
+      />
     </div>
     <h2 class="mb-1 mr-auto mt-4 font-sans font-bold">
       {{ couponInfo.deal }}
