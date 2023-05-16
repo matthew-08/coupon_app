@@ -8,7 +8,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "seed": "ts-node-dev --respawn --transpile-only --debug src/utils/seedDb.ts",
     "build": "tsc --build tsconfig.json ",
-    "start": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "start": "node dist"
   },
   "author": "",
   "license": "ISC",
