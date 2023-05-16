@@ -1,6 +1,5 @@
 import pgClient from '../appConfig/dbConnect'
 import { QueryResult } from 'pg'
-import { CreateUserInput } from '../schema/user.schema'
 import type { QueryAllCoupons, User, UserDBInsertInput } from '../types'
 import { UserSessionInput } from '../schema/session.schema'
 import { genCouponCode } from '../utils/genCouponCode'
@@ -23,7 +22,6 @@ const sqlQueries = {
                 `,
                 [input.email]
             )
-            console.log(user.rows[0])
             return user.rows[0]
         },
         async createUser({

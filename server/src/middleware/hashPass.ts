@@ -10,7 +10,10 @@ const hashPass = async (
 ) => {
     try {
         const { password } = req.body
-        const passHash = await bcrpyt.hash(password, appEnv.SALT_ROUNDS)
+        const passHash = await bcrpyt.hash(
+            password,
+            appEnv.SALT_ROUNDS as string
+        )
         req.body = {
             ...req.body,
             hashPass: passHash,

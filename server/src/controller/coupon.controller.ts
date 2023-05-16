@@ -12,7 +12,6 @@ const getAllCouponsHandler = async (
         return res.status(400).send('Invalid access token')
     }
     const { id: userId } = getJwt.decoded
-    console.log(userId)
     const allCoupons = await database.coupons.getAllCoupons(userId)
     return res.status(200).json(allCoupons)
 }
