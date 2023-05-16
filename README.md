@@ -1,4 +1,5 @@
 # Coupon Application
+![image](https://github.com/matthew-08/coupon_app/assets/114291570/5bf74a32-b8e7-4341-8c36-772a0bd17549)
 
 # Setup
 
