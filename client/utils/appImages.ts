@@ -1,4 +1,4 @@
 export const appImages = {
-    userIcon: '/img/user.svg',
-    lockIcon: '/img/lock.svg',
-}
+  userIcon: '/img/user.svg',
+  lockIcon: '/img/lock.svg',
+};

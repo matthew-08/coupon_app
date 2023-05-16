@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     public: {
       TEST_EMAIL: process.env.NUXT_CREDENTIAL_EMAIL,
       TEST_PASSWORD: process.env.NUXT_CREDENTIAL_PASSWORD,
+      REST_API: process.env.NUXT_REST_API,
     },
   },
 });

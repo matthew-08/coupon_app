@@ -1,17 +1,17 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <section
-    class="max-w-screen-xl grid gap-2 grid-cols-2 sm:grid-cols-3 
-    md:grid-cols-4 px-2 mx-auto" 
+    class="mx-auto grid max-w-screen-xl grid-cols-2 
+    gap-2 px-2 sm:grid-cols-3 md:grid-cols-4"
   >
     <LoadingCard
       v-for="(loadingCard, index) in loadingCards"
-      v-show="loading"
+      v-show="couponsLoading"
       :key="index"
     />
     <CouponCard
-      v-for="(coupon) in coupons"
-      v-show="!loading" 
+      v-for="coupon in coupons"
+      v-show="!couponsLoading"
       :key="coupon.id"
       :coupon-info="coupon"
       @show-modal="handleCardClick"
@@ -29,75 +29,65 @@
 </template>
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { Teleport } from 'vue';
-import { ref } from 'vue'
+import { ref } from 'vue';
 import { CouponInfo } from '~/globalTypes';
 import { definePageMeta } from '~/.nuxt/imports';
-import { convertDate } from '~/utils/convertDate'
 import api from '~/utils/apiFetch';
-import { CompilerDeprecationTypes } from '@vue/compiler-core';
-
-const loading = ref(true)
+import { formatCoupons } from '~/utils/formatCoupons';
 
 definePageMeta({
-  middleware: 'protect-route'
-})
-const coupons = ref<CouponInfo[]>([])
-const loadingRedeem = ref(false)
-const loadingCards = ref(Array(10))
+  middleware: 'protect-route',
+});
 
-if(process.client) {
-  loading.value = true
-  await api.makeFetch('/api/coupons')
-  .then(res => res.json())
-  .then((r: CouponInfo[]) => {
-    coupons.value = r.map(r => {
-    r.validThroughStart = '5/01'
-    r.validThroughEnd = convertDate(r.validThroughEnd)
-    return r
-  })
-  loading.value = false
-})
+const couponsLoading = ref(true);
+const showModal = ref(false);
+const modalCoupon = ref<CouponInfo>({} as CouponInfo);
+
+
+const coupons = ref<CouponInfo[]>([]);
+const loadingRedeem = ref(false);
+const loadingCards = ref(Array(10));
+
+if (process.client) {
+  couponsLoading.value = true;
+  await api
+    .makeFetch('/api/coupons')
+    .then((res) => res.json())
+    .then((r: CouponInfo[]) => {
+      coupons.value = formatCoupons(r)
+      couponsLoading.value = false;
+    });
 }
 
-
-
-const modalCoupon = ref<CouponInfo>({} as CouponInfo)
-
-
-
-const showModal = ref(false)
-const findCoupon = (id: number) => coupons.value.find((coupon) => coupon.id === id)
+const findCoupon = (id: number) =>
+  coupons.value.find((coupon) => coupon.id === id);
 const setModalCard = (coupId: number) => {
-  const selectedCoupon = findCoupon(coupId)
-  if(selectedCoupon) {
-    modalCoupon.value = selectedCoupon
+  const selectedCoupon = findCoupon(coupId);
+  if (selectedCoupon) {
+    modalCoupon.value = selectedCoupon;
   }
-}
+};
 const handleCardClick = (couponId: number) => {
-  setModalCard(couponId)
-  return showModal.value = !showModal.value  
-}
+  setModalCard(couponId);
+  return (showModal.value = !showModal.value);
+};
 
 const handleRedeemCoupon = async (coupId: number) => {
-  const redeemedCoupon = findCoupon(coupId)
-  if(!redeemedCoupon) {
-    return
+  const redeemedCoupon = findCoupon(coupId);
+  if (!redeemedCoupon) {
+    return;
   }
-  loadingRedeem.value = true
-  await api.makeFetch(`/api/coupons/${coupId}`, 'PUT')
-  .then(res => res.json())
-  .then((r: { code: string, redeemedAt: string }) => {
-    redeemedCoupon.code = r.code
-    redeemedCoupon.redeemedAt = r.redeemedAt
-  })
-  loadingRedeem.value = false
-  redeemedCoupon.redeemed = true
-  console.log(redeemedCoupon)
-}
-
-
-
-
+  loadingRedeem.value = true;
+  await api
+    .makeFetch(`/api/coupons/${coupId}`, 'PUT')
+    .then((res) => res.json())
+    .then((r: { code: string; redeemedAt: string }) => {
+      redeemedCoupon.code = r.code;
+      redeemedCoupon.redeemedAt = r.redeemedAt;
+    });
+  loadingRedeem.value = false;
+  redeemedCoupon.redeemed = true;
+  console.log(redeemedCoupon);
+};
 </script>

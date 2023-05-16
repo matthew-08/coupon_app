@@ -1,24 +1,15 @@
 <template>
-  <footer class="w-full flex justify-center mt-auto mb-1">
+  <footer class="mb-1 mt-auto flex w-full justify-center">
     <a
-      class="flex items-center gap-3 cursor-pointer"
+      class="flex cursor-pointer items-center gap-3"
       href="https://github.com/matthew-08/coupon_app"
     >
-      <p class="text-3xl">
-        Github Repo
-      </p>
-      <FAIcon
-        :icon="['fa-brands', 'github-square']"
-        size="3x"
-      />
+      <p class="text-3xl">Github Repo</p>
+      <FAIcon :icon="['fa-brands', 'github-square']" size="3x" />
     </a>
   </footer>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -4,11 +4,12 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ["plugin:nuxt/recommended", "plugin:vue/vue3-recommended"],
+  extends: ["@nuxtjs/eslint-config-typescript', 'plugin:prettier/recommended"],
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    ecmaVersion: "latest",
-    parser: "@typescript-eslint/parser",
-    sourceType: "module",
+    ecmaVersion: 'latest',
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
   },
-  plugins: ["@typescript-eslint"],
+  plugins: ['@typescript-eslint'],
 };

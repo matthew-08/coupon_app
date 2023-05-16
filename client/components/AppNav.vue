@@ -1,8 +1,10 @@
 <template>
-  <header class="flex justify-center items-center py-4 w-full bg-slate-50 mb-8">
+  <header class="mb-8 flex w-full items-center justify-center
+   bg-slate-50 py-4">
     <h2
-      class="font-extrabold text-transparent text-5xl sm:text-7xl lg:text-8xl bg-clip-text 
-      bg-gradient-to-r from-cyan-500 to-cyan-300"
+      class="bg-gradient-to-r from-cyan-500 to-cyan-300 
+      bg-clip-text text-5xl font-extrabold text-transparent 
+      sm:text-7xl lg:text-8xl"
     >
       SuperCoupons
     </h2>

@@ -6,7 +6,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lintfix": "prettier --single-quote --trailing-comma all --write --list-different ."
   },
   "devDependencies": {
     "@nuxtjs/eslint-module": "^4.0.2",
@@ -20,7 +21,8 @@
     "nuxt": "^3.4.3",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
-    "vite-plugin-eslint": "^1.8.1"
+    "vite-plugin-eslint": "^1.8.1",
+    "eslint-plugin-prettier": "^4.2.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -28,7 +30,6 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
-    "epic-spinners": "^2.0.0",
-    "eslint-plugin-prettier": "^4.2.1"
+    "epic-spinners": "^2.0.0"
   }
 }

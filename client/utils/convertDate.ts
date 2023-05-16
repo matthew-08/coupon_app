@@ -2,7 +2,7 @@ const convertDate = (
   unixDate: number | string,
   options?: {
     redeemdAt: boolean;
-  }
+  },
 ) => {
   let date;
   if (options && options.redeemdAt) {

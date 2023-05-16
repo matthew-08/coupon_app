@@ -27,6 +27,7 @@ const apiFetchGenerator = <T extends string>(apiURL: string) => {
   };
 };
 
-const api = apiFetchGenerator<Paths>('http://localhost:3000');
+const config = useRuntimeConfig();
+const api = apiFetchGenerator<Paths>(config.public.REST_API);
 
 export default api;

@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <main class="flex flex-col bg-slate-50 min-h-screen">
+  <main class="flex min-h-screen flex-col bg-slate-50">
     <AppNav />
     <slot />
     <AppFooter />

@@ -1,76 +1,62 @@
 <template>
   <Transition name="modal">
-    <div
-      v-if="show"
-      class="modal-overlay"
-    >
-      <div class="modal-container w-80 sm:w-6/12 sm:max-w-md flex flex-col items-center relative">
+    <div v-if="show" class="modal-overlay">
+      <div
+        class="modal-container relative flex w-80 flex-col 
+        items-center sm:w-6/12 sm:max-w-md"
+      >
         <div
           class="absolute right-3 top-3 cursor-pointer"
           @click="$emit('close')"
         >
-          <FAIcon
-            :icon="['fa-solid', 'fa-x']"
-            size="1x"
-          />
+          <FAIcon :icon="['fa-solid', 'fa-x']" size="1x" />
         </div>
         <div class="modal-header mt-5">
-          <h1 class="font-bold text-2xl">
-            Coupon Redemption
-          </h1>
+          <h1 class="text-2xl font-bold">Coupon Redemption</h1>
         </div>
         <div class="modal-body flex flex-col items-center gap-3">
-          <FAIcon
-            :icon="['fa-brands', couponInfo.icon]"
-            size="5x"
-          />
+          <FAIcon :icon="['fa-brands', couponInfo.icon]" size="5x" />
           <h1 class="text-2xl font-bold">
             {{ couponInfo.company }}
           </h1>
-          <h1 class="font-bold text-lg text-center">
+          <h1 class="text-center text-lg font-bold">
             {{ couponInfo.deal }}
-            <br>
-            {{ couponInfo.validThroughStart }} - {{ couponInfo.validThroughEnd }}
+            <br />
+            {{ couponInfo.validThroughStart }} -
+            {{ couponInfo.validThroughEnd }}
           </h1>
           <div>
-            <h2 class="mr-auto text-1xl font-bold">
-              Description:
-            </h2>
+            <h2 class="text-1xl mr-auto font-bold">Description:</h2>
             <p class="text-left">
-              Lorem ipsum dolor, sit amet dir adipisicing elit. Officiis, eos. Earum magnam dolores porro maxime atque corrupti, tempora quaerat.
+              Lorem ipsum dolor, sit amet dir adipisicing elit. Officiis, eos.
+              Earum magnam dolores porro maxime atque corrupti, tempora quaerat.
             </p>
           </div>
         </div>
 
-        <div class="flex flex-col modal-footer w-full items-center">
-          <div
-            v-show="couponInfo.redeemed"
-            class="text-center mb-2"
-          >
+        <div class="modal-footer flex w-full flex-col items-center">
+          <div v-show="couponInfo.redeemed" class="mb-2 text-center">
             <p>Your code is:</p>
             <p class="text-3xl">
               {{ couponInfo.code }}
             </p>
           </div>
           <button
-            class="w-full bg-slate-200 p-2 mb-2"
+            class="mb-2 w-full bg-slate-200 p-2"
             :disabled="couponInfo.redeemed"
             @click="$emit('redeemCoupon', couponInfo.id)"
           >
-            <template 
-              v-if="!loadingRedeem"
-            >
-              {{ couponInfo.redeemed ? `Redeemed on ${convertDate(couponInfo.redeemedAt, {
-                redeemdAt: true,
-              })}` : 'Redeem now!' }}
+            <template v-if="!loadingRedeem">
+              {{
+                couponInfo.redeemed
+                  ? `Redeemed on ${convertDate(couponInfo.redeemedAt, {
+                      redeemdAt: true,
+                    })}`
+                  : 'Redeem now!'
+              }}
             </template>
-            <template
-              v-else
-            >
-              <HalfCircleSpinner
-                class="m-auto"
-                :size="30"
-              />
+            <template v-else>
+              <HalfCircleSpinner class="m-auto" :size="30" />
             </template>
           </button>
           <button
@@ -90,7 +76,7 @@ import { HalfCircleSpinner } from 'epic-spinners';
 import { genCouponCode } from '~/utils/genCoupCode';
 import { CouponInfo } from '~/globalTypes';
 import { convertDate } from '~/utils/convertDate';
-const emits = defineEmits(['close', 'redeemCoupon'])
+const emits = defineEmits(['close', 'redeemCoupon']);
 
 const props = defineProps({
   show: Boolean,
@@ -98,11 +84,9 @@ const props = defineProps({
     type: Object as PropType<CouponInfo>,
     required: true,
   },
-  loadingRedeem: Boolean
-})
+  loadingRedeem: Boolean,
+});
 </script>
-
-
 
 <style>
 .modal-overlay {
